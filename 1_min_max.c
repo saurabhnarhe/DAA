@@ -13,15 +13,20 @@ struct MinMax min_max(int start, int end, struct MinMax M) {
     if(start > end) 
         return M;
     if(start == end) {
-        M.smallest = M.smallest<A[start]? M.smallest: A[start];
-        M.greatest = M.greatest>A[start]? M.greatest: A[start];
+        M.smallest = M.smallest < A[start] ? M.smallest : A[start];
+        M.greatest = M.greatest > A[start] ? M.greatest : A[start];
         return M;
     } else if(start == (end-1)) {
-        M.smallest = M.smallest<((A[start]<A[end])? A[start]: A[end])? M.smallest: ((A[start]<A[end])? A[start]: A[end]);
-        M.greatest = M.greatest>((A[start]>A[end])? A[start]: A[end])? M.greatest: ((A[start]>A[end])? A[start]: A[end]);
+        if(A[start]<A[end]) {
+            M.smallest = M.smallest < A[start] ? M.smallest : A[start];
+            M.greatest = M.greatest > A[end] ? M.greatest : A[end];
+        } else {
+            M.smallest = M.smallest < A[end] ? M.smallest : A[end];
+            M.greatest = M.greatest > A[start] ? M.greatest : A[start];
+        }
         return M;
     } else {
-        M = min_max(start, mid-1, M);
+        M = min_max(start, mid, M);
         M = min_max(mid+1, end, M);
         return M;
     }
